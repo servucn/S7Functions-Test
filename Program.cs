@@ -24,15 +24,16 @@ namespace S7Functions
             int errorcode = Server.Start();
             Client.SetConnectionParams("127.0.0.1", 0, 2);
             Client.Connect();
-            Client.DBWrite(2, 0, 4, new byte []{ 1, 2, 3, 4 });
+            Client.DBWrite(2, 0, 4, new byte[] { 1, 2, 3, 4 });
             byte[] b = new byte[4];
-           
+
             S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
             Client.GetCpuInfo(ref info);
             Console.WriteLine(info.ASName);
             Console.WriteLine(Client.Connected());
             Console.WriteLine(errorcode);
-
+            byte[] buffer = new byte[4];
+            int i = Client.DBRead(2, 0, 4, buffer);
 
             Console.ReadLine();
         }
